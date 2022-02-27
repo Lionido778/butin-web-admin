@@ -1,18 +1,22 @@
 <template>
   <div class="login-container">
-    <el-form ref="formRef" :model="loginForm" class="login-form">
+    <el-form ref="formRef" :model="loginForm" class="login-form" :rules="rules">
       <div class="title-container">
         <h3 class="title">用户登录</h3>
       </div>
-      <el-form-item>
+      <el-form-item prop="username">
         <svg-icon icon="user" class="svg-container"></svg-icon>
         <el-input v-model="loginForm.username"></el-input>
       </el-form-item>
-      <el-form-item>
+      <el-form-item prop="password">
         <svg-icon icon="password" class="svg-container"></svg-icon>
         <el-input v-model="loginForm.password"></el-input>
       </el-form-item>
-      <el-button type="primary" class="login-button">登录</el-button>
+      <el-button
+        type="primary"
+        class="login-button"
+        @click="handleLogin"
+      ></el-button>
     </el-form>
   </div>
 </template>
@@ -24,6 +28,35 @@ const loginForm = ref({
   username: '',
   password: ''
 })
+
+const rules = ref({
+  username: [
+    {
+      required: true,
+      message: 'Please input Activity name',
+      trigger: 'blur'
+    }
+  ],
+  password: [
+    {
+      required: true,
+      message: 'Please input Activity name',
+      trigger: 'blur'
+    }
+  ]
+})
+
+const formRef = ref(null)
+const handleLogin = () => {
+  formRef.value.validate(async (valid) => {
+    if (valid) {
+      console.log('submit!')
+    } else {
+      console.log('error submit!')
+      return false
+    }
+  })
+}
 </script>
 
 <style lang="scss" scoped>
@@ -46,28 +79,27 @@ $cursor: #fff;
     margin: 0 auto;
     overflow: hidden;
 
-    :deep(.el-form-item) {
+    ::v-deep .el-form-item {
       border: 1px solid rgba(255, 255, 255, 0.1);
       background: rgba(0, 0, 0, 0.1);
       border-radius: 5px;
       color: #454545;
     }
 
-    :deep(.el-input) {
+    ::v-deep .el-input {
       display: inline-block;
       height: 47px;
-      width: 90%;
-      border: solid rgba(41, 40, 40, 0.1);
-      background: transparent;
+      width: 85%;
+
       input {
-        border: 0px !important;
-        //   border: 0px rgba(41, 40, 40, 0.1);
-        //   -webkit-appearance: none;
-        //   border-radius: 0px;
-        //   padding: 12px 5px 12px 15px;
-        //   color: $light_gray;
+        background: transparent;
+        border: 0px;
+        -webkit-appearance: none;
+        border-radius: 0px;
+        padding: 12px 5px 12px 15px;
+        color: $light_gray;
         height: 47px;
-        //   caret-color: $cursor;
+        caret-color: $cursor;
       }
     }
     .login-button {
@@ -107,7 +139,7 @@ $cursor: #fff;
       font-weight: bold;
     }
 
-    :deep(.lang-select) {
+    ::v-deep .lang-select {
       position: absolute;
       top: 4px;
       right: 0;
