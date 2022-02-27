@@ -1,17 +1,19 @@
 <template>
   <el-container class="app-wrapper">
-    <el-aside width="200px" class="sidebar-container">Aside</el-aside>
-    <el-container>
-      <el-header>Header</el-header>
-      <el-main>Main</el-main>
+    <el-aside width="200px" class="sidebar-container">
+      <Menu />
+    </el-aside>
+    <el-container class="container">
+      <el-header>header</el-header>
+      <el-main>
+        <router-view />
+      </el-main>
     </el-container>
   </el-container>
 </template>
 
 <script setup>
-// eslint-disable-next-line no-unused-vars
-import { useStore } from 'vuex'
-// const store = useStore()
+import Menu from './menu/MenuIndex'
 </script>
 
 <style lang="scss" scoped>
