@@ -55,7 +55,6 @@ const handleLogin = () => {
   formRef.value.validate(async (valid) => {
     if (valid) {
       store.dispatch('app/login', loginForm.value)
-      // console.log(res)
     } else {
       console.log('error submit!')
       return false
